@@ -13,7 +13,7 @@ class MeasurementTypeSeeder extends Seeder
      */
     public function run()
     {
-        $types = ['Temperature', 'Humidity', 'Speed'];
+        $types = [ 'Pressure', 'Volume', 'Mass', 'Length', 'Area', 'Energy', 'Power', 'Time', 'Frequency', 'Current', 'Voltage', 'Resistance', 'Density', 'Flow Rate', 'Light Intensity', 'Sound Level', 'pH Level', 'Viscosity'];
         foreach ($types as $type) {
             MeasurementType::create(['name' => $type]);
         }

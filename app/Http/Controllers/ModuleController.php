@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use Illuminate\Http\Request;
+use App\Models\MeasurementType;
 
 class ModuleController extends Controller
 {
@@ -23,7 +24,8 @@ class ModuleController extends Controller
     public function create()
     {
         //
-        return view('modules.create');
+        $measurementTypes = MeasurementType::all();
+        return view('modules.create', compact('measurementTypes'));
     }
 
     /**
@@ -32,13 +34,14 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'type' => 'required|string',
-        ]);
+        'name' => 'required|string|max:255',
+        'measurement_type_id' => 'required|exists:measurement_types,id',
+    ]);
 
-        Module::create($request->only('name', 'type'));
+    Module::create($request->only('name', 'measurement_type_id'));
 
-        return redirect()->route('modules.index');
+    return redirect()->route('modules.index')->with('success', 'Module registered successfully.');
+
     }
 
     /**
