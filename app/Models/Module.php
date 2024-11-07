@@ -12,4 +12,9 @@ class Module extends Model
     {
         return $this->hasMany(ModuleData::class);
     }
+
+    public function measurementType()
+    {
+        return $this->belongsTo(MeasurementType::class);
+    }
 }

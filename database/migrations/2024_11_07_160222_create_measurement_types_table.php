@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('measurement_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('measurement_type_id')->constrained()->onDelete('cascade');
-            $table->string('status')->default('active');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('measurement_types');
     }
 };
