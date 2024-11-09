@@ -15,6 +15,11 @@
             {{ session('warning') }}
         </div>
     @endif
+    @if(session('info'))
+        <div class="alert alert-info">
+            {{ session('info') }}
+        </div>
+    @endif
 
     <!-- Form to Add New Module Type -->
     <div class="card mb-4">
@@ -38,17 +43,27 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>S.no</th>
                         <th>Module types</th>
-                        <th>Created At</th>
+                        <th>Updated</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php 
+                     $counter=1;
+                    ?>
                     @foreach($types as $type)
+                    
                         <tr>
-                            <td>{{ $type->id }}</td>
-                            <td>{{ $type->name }}</td>
-                            <td>{{ $type->created_at->format('Y-m-d') }}</td>
+                        <form action="{{ route('module-types.update', $type->id) }}" method="POST" style="display: flex;">
+                @csrf
+                            <td>{{ $counter }}</td>
+                            <td><input type="text" name="name" value="{{ $type->name }}" class="form-control" required></td>
+                            <td>{{ $type->updated_at->diffForHumans() }}</td>
+                            <td><button type="submit" class="btn btn-primary ms-2">Update</button>
+                            </form></td>
                             <td>
                                 <!-- Delete Button -->
                                 <form action="{{ route('module-types.destroy', $type->id) }}" method="POST" style="display:inline;">
@@ -58,6 +73,7 @@
                                 </form>
                             </td>
                         </tr>
+                        <?php $counter++; ?>
                     @endforeach
                 </tbody>
             </table>

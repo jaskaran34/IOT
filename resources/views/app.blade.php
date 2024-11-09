@@ -41,8 +41,8 @@
         <h4 class="text-center">IoT Monitoring</h4>
         <hr>
         <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('modules.index') }}">Modules List</a>
-        <a href="{{ route('module-types.index') }}">Module Types </a>
+        <a href="{{ route('modules.index') }}">Modules</a>
+        <a href="{{ route('module-types.index') }}">Types </a>
       
     </div>
 

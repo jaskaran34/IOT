@@ -10,12 +10,17 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModuleTypeController;
 
-Route::get('/modules', [ModuleController::class, 'index'])->name('modules.index');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/modules/create', [ModuleController::class, 'create']);
+
+
+Route::get('/modules/create', [ModuleController::class, 'create'])->name('modules.index');
 Route::post('/modules', [ModuleController::class, 'store'])->name('modules.store');
+Route::post('/modules/update/{id}', [ModuleController::class, 'update'])->name('modules.update');
+Route::delete('/module/{id}', [ModuleController::class, 'destroy'])->name('module.destroy');
 
 
 Route::get('/module-types', [ModuleTypeController::class, 'index'])->name('module-types.index');
 Route::post('/module-types',[ModuleTypeController::class, 'store'])->name('module-types.store');
+Route::post('/measurement-types/update/{id}', [ModuleTypeController::class, 'update'])->name('module-types.update');
 Route::delete('/module-types/{id}', [ModuleTypeController::class, 'destroy'])->name('module-types.destroy');
