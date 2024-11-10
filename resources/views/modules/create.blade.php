@@ -6,7 +6,7 @@
 
 
 <div class="container">
-    <h2>Modules</h2>
+    <h5>Add Modules</h5>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -49,11 +49,14 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Module Id</th>
                         <th>Name</th>
                         <th>Measurement Type</th>
                         <th>Status</th>
+                        
                         <th>Updated At</th>
-                        <th>Action</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,6 +69,7 @@
                 @csrf 
 
                 <td>{{ $counter}}</td>
+                <td>{{ $module['id']}}</td>
                  <td><input type="text" name="name" value="{{ $module['name'] }}" class="form-control" required> </td>
                   <td>
 
@@ -80,10 +84,11 @@
                   <option value="inactive" {{ 'inactive' == $module['status'] ? 'selected' : '' }}> inactive </option>  
                 </select> 
                   </td>
+                  <td>{{ \Carbon\Carbon::parse($module['updated_at'])->diffForHumans() }}</td>
                   <td><button type="submit" class="btn btn-primary ms-2">Update</button>
                             </form></td>
     
-                  <td>{{ \Carbon\Carbon::parse($module['updated_at'])->diffForHumans() }}</td>
+                  
                   <td>
                                 <!-- Delete Button -->
                                 <form action="{{ route('module.destroy', $module['id']) }}" method="POST" style="display:inline;">

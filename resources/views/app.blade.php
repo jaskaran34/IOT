@@ -43,6 +43,7 @@
         <a href="{{ route('dashboard') }}">Dashboard</a>
         <a href="{{ route('modules.index') }}">Modules</a>
         <a href="{{ route('module-types.index') }}">Types </a>
+        <a href="{{ route('update.status') }}">Generate Status </a>
       
     </div>
 

@@ -11,8 +11,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModuleTypeController;
 
 
+
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+
+Route::get('/update-module-status', function () {return view('modules.updateStatus');})->name('update.status');
+Route::post('/update-module-status', [ModuleController::class, 'updateModuleStatus'])->name('update.module.status');
 
 Route::get('/modules/create', [ModuleController::class, 'create'])->name('modules.index');
 Route::post('/modules', [ModuleController::class, 'store'])->name('modules.store');

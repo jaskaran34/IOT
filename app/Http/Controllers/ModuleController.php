@@ -6,6 +6,7 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\MeasurementType;
 use App\Models\StatusMonitoring;
+use Illuminate\Support\Facades\Artisan;
 
 
 class ModuleController extends Controller
@@ -130,5 +131,20 @@ class ModuleController extends Controller
         $type->delete();
 
       return redirect()->route('modules.index')->with('warning', 'Module deleted successfully!');
+    }
+
+    public function updateModuleStatus(Request $request)
+    {
+        // Run the artisan command and capture the output
+        Artisan::call('update-module-status');  // Run your custom command
+
+        // Get the output of the command
+        $output = Artisan::output();
+
+        session()->flash('formSubmitted', true);
+
+        // Return a response to the view with the command output
+        return redirect()->back()->with('success', 'Module status updated successfully.')
+            ->with('output', $output);  // Pass the output to the view
     }
 }
