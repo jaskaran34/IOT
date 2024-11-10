@@ -23,24 +23,17 @@ This project allows users to manage and monitor different types of modules, gene
     cd project-name
     ```
 
-2. Install dependencies:
-    ```sh
-    composer install
-    npm install
-    ```
-
-3. Set up the environment:
+2. Set up the environment:
     ```sh
     cp .env.example .env
-    php artisan key:generate
     ```
 
-4. Run migrations:
+3. Run migrations:
     ```sh
     php artisan migrate
     ```
 
-5. Start the development server:
+4. Start the development server:
     ```sh
     php artisan serve
     ```
@@ -72,13 +65,3 @@ This project allows users to manage and monitor different types of modules, gene
 1. Go to the **Generate Random Data** page.
 2. Click the **Simulate Module Failure** button to run a background script that simulates a module failure.
 3. Receive a notification about the simulated failure.
-
-## Contributing
-If you would like to contribute to this project, please submit a pull request or open an issue with your suggestions and improvements.
-
-## License
-This project is licensed under the MIT License.
-
-## Contact
-For any questions or inquiries, please contact [your email](mailto:youremail@example.com).
-
