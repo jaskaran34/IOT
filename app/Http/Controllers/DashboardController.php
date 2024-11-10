@@ -60,4 +60,39 @@ class DashboardController extends Controller
 
         return view('module.details', compact('module'));
     }
+
+    public function getModuleActivityData()
+{
+    $moduleData = Module::withCount('measurements') 
+    ->orderBy('measurements_count', 'desc') 
+    ->take(5)    
+    ->get()
+        ->map(function ($module) {
+            return [
+                'name' => $module->name,
+                'dataPoints' => $module->measurements_count,
+            ];
+        });
+
+    return response()->json($moduleData);
+}
+
+public function getCombinedData() {
+    $modules = Module::with(['measurements']) // Assuming each module has a relationship with measurements
+                     ->get();
+
+    // Format the data to return the necessary information
+    $data = $modules->map(function ($module) {
+        $totalDataPoints = $module->measurements->count(); // Counting the data points
+        $averageMeasurement = $module->measurements->avg('value'); // Average of measurement values
+        
+        return [
+            'name' => $module->name,
+            'total_data_points' => $totalDataPoints,
+            'average_measurement' => $averageMeasurement,
+        ];
+    });
+
+    return response()->json($data);
+}
 }

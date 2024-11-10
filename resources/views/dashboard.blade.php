@@ -3,9 +3,40 @@
 @section('title', 'Dashboard')
 
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="container">
 
 <div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+            <h5>Module Activity Summary</h5>
+            </div>
+            <div class="card-body">
+            <canvas id="moduleActivityChart"></canvas>
+            </div>
+        </div>
+    
+    
+    
+
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+            <h5>Module Avg Reading and Data Points Summary</h5>
+            </div>
+            <div class="card-body">
+            <div class="container mt-4">
+    
+    <canvas id="combinedChart"></canvas>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
         <div class="col-md-4">
             <div class="card" onclick="openDynamicModal('Total Modules', '{{route('modules.all','0') }}' )"
              style="cursor: pointer;">
@@ -99,7 +130,7 @@
 
 <!-- Reusable Modal -->
 <div class="modal fade" id="dynamicModal" tabindex="-1" aria-labelledby="dynamicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="dynamicModalLabel">Modal Title</h5>
@@ -229,6 +260,116 @@
         var dynamicModal = new bootstrap.Modal(document.getElementById('dynamicModal'));
         dynamicModal.show();
     }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('moduleActivityChart').getContext('2d');
+
+    // Fetch module activity data and initialize the chart
+    fetch('/dashboard/module-activity')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(module => module.name);
+            const dataPoints = data.map(module => module.dataPoints);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels, // Module names
+                    datasets: [{
+                        label: 'Data Points Sent',
+                        data: dataPoints, // Number of data points per module
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Data Points Sent'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Modules'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching module activity data:', error));
+
+
+
+        const chartCtx = document.getElementById('combinedChart').getContext('2d');
+
+// Fetch data for the combined chart
+fetch('/dashboard/combined-data') // Endpoint where you return the data
+    .then(response => response.json())
+    .then(moduleData => {
+        // Prepare data for the chart
+        const moduleLabels = moduleData.map(module => module.name);
+        const dataPoints = moduleData.map(module => module.total_data_points);
+        const avgMeasurementValues = moduleData.map(module => module.average_measurement);
+
+        // Create the combined Line + Bar chart
+        new Chart(chartCtx, {
+            type: 'bar', // Start with bar chart for data points
+            data: {
+                labels: moduleLabels,
+                datasets: [
+                    {
+                        label: 'Data Points Sent',
+                        data: dataPoints,
+                        backgroundColor: 'rgba(24, 103, 245, 0.7)',
+                        borderColor: 'rgba(54, 102, 135, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'dataPointsYAxis', // Link to the y-axis for data points
+                    },
+                    {
+                        label: 'Average Measurement',
+                        data: avgMeasurementValues,
+                        type: 'line', // Use line for average measurement
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        tension: 0.4,
+                        fill: false,
+                        yAxisID: 'avgMeasurementYAxis', // Link to the y-axis for average measurement
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    dataPointsYAxis: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Data Points Sent'
+                        }
+                    },
+                    avgMeasurementYAxis: {
+                        beginAtZero: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Average Measurement Value'
+                        }
+                    }
+                }
+            }
+        });
+    })
+    .catch(error => console.error('Error fetching combined data:', error));
+
+});
+
 </script>
 
 
