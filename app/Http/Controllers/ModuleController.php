@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementType;
 use App\Models\StatusMonitoring;
 use Illuminate\Support\Facades\Artisan;
+use App\Models\SkippedModule;
 use Carbon\Carbon;
 
 class ModuleController extends Controller
@@ -208,6 +209,14 @@ class ModuleController extends Controller
 
         return view('modules.index', compact('totalModules', 'activeModules', 'inactiveModules', 'modules'));
     
+    }
+    public function skipped_modules()
+    {
+        // Fetch all skipped modules, with optional pagination if needed
+        $skippedModules = SkippedModule::all(); // or ->paginate(10);
+
+        // Return the view with the skipped modules data
+        return view('skippedModules.index', compact('skippedModules'));
     }
     public function simulateMalfunction()
 {

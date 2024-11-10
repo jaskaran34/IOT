@@ -12,9 +12,12 @@ use App\Http\Controllers\ModuleTypeController;
 
 
 
+Route::get('/skipped-modules', [ModuleController::class, 'skipped_modules'])->name('skippedModules.index');
+
 
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 Route::get('/module/dashboard/{id}', [DashboardController::class, 'showModuleDetails'])->name('module.details');
+
 
 Route::get('/dashboard/combined-data', [DashboardController::class, 'getCombinedData']);
 Route::get('/dashboard/module-activity', [DashboardController::class, 'getModuleActivityData'])->name('dashboard.module-activity');

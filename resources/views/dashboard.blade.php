@@ -36,35 +36,7 @@
     </div>
 </div>
 
-<div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card" onclick="openDynamicModal('Total Modules', '{{route('modules.all','0') }}' )"
-             style="cursor: pointer;">
-                <div class="card-header">Total Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $totalModules }}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-        <div class="card" onclick="openDynamicModal('Active Modules', '{{route('modules.all','1') }}' )"
-        style="cursor: pointer;">
-                <div class="card-header">Active Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $activeModules }}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-        <div class="card" onclick="openDynamicModal('Inactive Modules', '{{route('modules.all','2') }}' )"
-        style="cursor: pointer;">
-                <div class="card-header">Inactive Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $inactiveModules }}</h5>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <?php $count=1; ?>
     <div class="row">
@@ -123,6 +95,36 @@
     </table>
     </div>            
 </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card" onclick="openDynamicModal('Total Modules', '{{route('modules.all','0') }}' )"
+             style="cursor: pointer;">
+                <div class="card-header">Total Modules</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $totalModules }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card" onclick="openDynamicModal('Active Modules', '{{route('modules.all','1') }}' )"
+        style="cursor: pointer;">
+                <div class="card-header">Active Modules</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $activeModules }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card" onclick="openDynamicModal('Inactive Modules', '{{route('modules.all','2') }}' )"
+        style="cursor: pointer;">
+                <div class="card-header">Inactive Modules</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $inactiveModules }}</h5>
+                </div>
+            </div>
         </div>
     </div>
     

@@ -49,6 +49,12 @@
     </div>
 
     <div class="content">
+    @if(isset($skippedModulesCount) && $skippedModulesCount > 0)
+    <div class="alert alert-warning">
+        Warning: There are {{ $skippedModulesCount }} modules that failed to report data within the expected time.
+        <a href="{{ route('skippedModules.index') }}">View Details</a>
+    </div>
+@endif
         @yield('content')
     </div>
 

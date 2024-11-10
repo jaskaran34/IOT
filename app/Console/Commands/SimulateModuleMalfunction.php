@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Module;
 use App\Models\ModuleMeasurement;
+use App\Models\SkippedModule;
 
 use Carbon\Carbon;
 
@@ -37,6 +38,13 @@ class SimulateModuleMalfunction extends Command
 
             if ($module->id === $failedModuleId) {
                 $this->info("Simulating failure for module ID {$module->id}. No data will be inserted.");
+
+                SkippedModule::create([
+                    'module_id' => $module->id,
+                    'skipped_at' => Carbon::now(),
+                    'reason' => 'Failed to report data',
+                ]);
+
                 continue; // Skip data update for this module
             }
             
