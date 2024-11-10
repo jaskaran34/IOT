@@ -78,6 +78,57 @@ class ModuleController extends Controller
     {
         //
     }
+    public function getAllModules($id)
+    {
+        if($id==0){
+        $modules = Module::all(); // Fetch all modules, with relevant data if needed
+
+    // Return JSON data with selected fields
+    return response()->json($modules->map(function ($module) {
+        return [
+            'id' => $module->id,
+            'name' => $module->name,
+            'status' => $module->status,
+            'created_at' => $module->created_at->diffforhumans(),
+            'updated_at' => $module->updated_at->diffforhumans(),
+        ];
+    }));
+    
+        }
+
+        if($id==1){
+            $modules = Module::where('status', 'active')->get(); // Fetch all modules, with relevant data if needed
+    
+        // Return JSON data with selected fields
+        return response()->json($modules->map(function ($module) {
+            return [
+                'id' => $module->id,
+                'name' => $module->name,
+                'status' => $module->status,
+                'created_at' => $module->created_at->diffforhumans(),
+                'updated_at' => $module->updated_at->diffforhumans(),
+            ];
+        }));
+        
+            }
+
+            if($id==2){
+                $modules = Module::where('status', 'inactive')->get(); // Fetch all modules, with relevant data if needed
+        
+            // Return JSON data with selected fields
+            return response()->json($modules->map(function ($module) {
+                return [
+                    'id' => $module->id,
+                    'name' => $module->name,
+                    'status' => $module->status,
+                    'created_at' => $module->created_at->diffforhumans(),
+                    'updated_at' => $module->updated_at->diffforhumans(),
+                ];
+            }));
+            
+                }
+}
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -165,6 +216,7 @@ class ModuleController extends Controller
         $module = Module::findOrFail($request->module_id);
         $statusMonitorings = StatusMonitoring::where('module_id', $module->id)
                                              ->orderBy('created_at', 'desc')
+                                             ->take(10)
                                              ->get();
     
         $previousStatus = null;

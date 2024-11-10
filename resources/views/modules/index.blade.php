@@ -33,7 +33,7 @@
                 <tr>
                     <th>Status</th>
                     <th>Time in Status</th>
-                    <th>Created At</th>
+                    <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody>

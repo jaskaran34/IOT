@@ -18,6 +18,9 @@ Route::get('/module/dashboard/{id}', [DashboardController::class, 'showModuleDet
 
 
 
+Route::get('/modules/all/{id}', [ModuleController::class, 'getAllModules'])->name('modules.all');
+
+
 Route::get('/module/status', [ModuleController::class, 'module_stat'])->name('module.status');
 Route::get('/module-status/{module_id}', [ModuleController::class, 'showStatus']);
 Route::get('/update-module-status', function () {return view('modules.updateStatus');})->name('update.status');
