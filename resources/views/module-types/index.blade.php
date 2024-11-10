@@ -62,14 +62,14 @@
                             <td>{{ $counter }}</td>
                             <td><input type="text" name="name" value="{{ $type->name }}" class="form-control" required></td>
                             <td>{{ $type->updated_at->diffForHumans() }}</td>
-                            <td><button type="submit" class="btn btn-primary ms-2">Update</button>
+                            <td><button type="submit" class="btn btn-primary ms-2">Update </button>
                             </form></td>
                             <td>
                                 <!-- Delete Button -->
                                 <form action="{{ route('module-types.destroy', $type->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this module type?')">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this module type?')"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

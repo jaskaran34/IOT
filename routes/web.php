@@ -2,23 +2,30 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModuleTypeController;
 
 
 
-Route::get('/skipped-modules', [ModuleController::class, 'skipped_modules'])->name('skippedModules.index');
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+});
 
+
+
+
+
+Route::get('/skipped-modules', [ModuleController::class, 'skipped_modules'])->name('skippedModules.index');
 Route::get('/skipped-modules/{id}/update-status/{status}', [ModuleController::class, 'updateStatus'])->name('skippedModules.updateStatus');
 
 
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 Route::get('/module/dashboard/{id}', [DashboardController::class, 'showModuleDetails'])->name('module.details');
+
+Route::get('/module-measurement/{moduleId}', [ModuleController::class, 'getModuleMeasurements']);
+
+
 
 
 Route::get('/dashboard/combined-data', [DashboardController::class, 'getCombinedData']);

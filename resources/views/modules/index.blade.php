@@ -4,6 +4,10 @@
 
 @section('content')
 
+<!-- Include Chart.js via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <div class="container">
     <h4>Module Status Dashboard</h4>
 
@@ -41,8 +45,20 @@
     }
 </style>
 
+<div class="row mt-2">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+            <div>
+<canvas id="lineChart" width="400" height="200"></canvas>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="mt-4">
+
+    <div class="mt-2">
         <h5>Module Measurement History</h5>
         <table class="table table-bordered scrollable-table" id="measurementTable">
             <thead>
@@ -60,7 +76,7 @@
 
 
     <!-- Status Monitorings Table -->
-    <div class="mt-4">
+    <div class="mt-2">
         <h5>Status Monitorings</h5>
         <table class="table table-bordered" id="statusMonitoringTable">
             <thead>
@@ -80,6 +96,79 @@
 @endsection
 
 <script>
+    // Declare a variable to hold the chart instance globally
+    let lineChart = null;
+
+    // Function to fetch and update the chart data based on selected module
+    function updateChart() {
+        const moduleId = document.getElementById('module').value;
+        
+        if (moduleId) {
+            fetch(`/module-measurement/${moduleId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const labels = data.labels;
+                    const values = data.data;
+
+                    // If the chart exists, destroy it before creating a new one
+                    if (lineChart) {
+                        lineChart.destroy();
+                    }
+
+                    // Create the chart using Chart.js
+                    const ctx = document.getElementById('lineChart').getContext('2d');
+                    lineChart = new Chart(ctx, {
+                        type: 'line', // Line chart type
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Measured Value',
+                                data: values,
+                                borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                                borderWidth: 2,
+                                fill: false, // Do not fill the area under the line
+                                tension: 0.1 // Smoothness of the line
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return `Value: ${tooltipItem.raw}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Time'
+                                    },
+                                    ticks: {
+                                        autoSkip: true,
+                                        maxTicksLimit: 20
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Measured Value'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching module measurements:', error));
+        }
+    }
 
 function fetchModuleMeasurements() {
     var moduleId = document.getElementById('module').value;
@@ -115,6 +204,7 @@ function fetchModuleMeasurements() {
 function fetchModuleStatus() {
 
     fetchModuleMeasurements();
+    updateChart();
 
     var moduleId = document.getElementById('module').value;
 

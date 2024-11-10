@@ -25,6 +25,27 @@ class ModuleController extends Controller
  
     return response()->json($measurements);
     }
+    public function getModuleMeasurements($moduleId)
+    {
+        // Fetch measurements for a given module and order them by created_at
+        $measurements = ModuleMeasurement::where('module_id', $moduleId)
+            ->orderBy('created_at', 'asc') // Ensure data is ordered by time (ascending)
+            ->get();
+
+        // Prepare the data for the chart
+        $labels = $measurements->map(function ($measurement) {
+            return Carbon::parse($measurement->created_at)->diffForHumans(); // Date format
+        });
+
+        $values = $measurements->map(function ($measurement) {
+            return $measurement->value;
+        });
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $values,
+        ]);
+    }
     public function index()
     {
         $types = MeasurementType::all();

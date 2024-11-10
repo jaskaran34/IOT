@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IoT Module Monitoring</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -24,7 +24,7 @@
             color: white;
             text-decoration: none;
             display: block;
-            padding: 10px;
+            padding: 18px;
             transition: background-color 0.3s;
         }
         .sidebar a:hover {
@@ -38,13 +38,13 @@
 </head>
 <body>
     <div class="sidebar">
-        <h4 class="text-center">IoT Monitoring</h4>
+        <h5 class="text-center">IoT Monitoring</h5>
         <hr>
-        <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('modules.index') }}">Modules</a>
+        <a href="{{ route('dashboard') }}">Dashboard <i class="fa-solid fa-gauge"></i></a>
+        <a href="{{ route('modules.index') }}">Modules <i class="fa-solid fa-plus"></i></a>
         <a href="{{ route('module-types.index') }}">Types </a>
-        <a href="{{ route('update.status') }}">Generate Readings </a>
-        <a href="{{ route('module.status') }}">Module Status </a>
+        <a href="{{ route('update.status') }}">Generate Readings <i class="fa-solid fa-bolt"></i></a>
+        <a href="{{ route('module.status') }}"> Status</a>
       
     </div>
 

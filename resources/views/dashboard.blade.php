@@ -87,7 +87,7 @@
                 '{{ Carbon\Carbon::parse($module['created_at'])->diffForHumans()}}',
                 '{{ $module['status'] == 'active' ? Carbon\Carbon::parse($module['updated_at'])->diffForHumans() : '' }}',
                 
-                )" class="btn btn-link">Details</button></td>
+                )" class="btn btn-link"><i class="fa-solid fa-circle-info"></i></button></td>
             </tr>
             <?php $count++; ?>
             @endforeach

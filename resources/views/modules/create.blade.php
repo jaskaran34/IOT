@@ -85,7 +85,7 @@
                 </select> 
                   </td>
                   <td>{{ \Carbon\Carbon::parse($module['updated_at'])->diffForHumans() }}</td>
-                  <td><button type="submit" class="btn btn-primary ms-2">Update</button>
+                  <td><button type="submit" class="btn btn-primary ms-2">Update </button>
                             </form></td>
     
                   
@@ -94,7 +94,7 @@
                                 <form action="{{ route('module.destroy', $module['id']) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this module ?')">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this module ?')"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                 </tr>
