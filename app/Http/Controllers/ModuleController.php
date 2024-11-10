@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementType;
 use App\Models\StatusMonitoring;
 use Illuminate\Support\Facades\Artisan;
-
+use Carbon\Carbon;
 
 class ModuleController extends Controller
 {
@@ -147,4 +147,55 @@ class ModuleController extends Controller
         return redirect()->back()->with('success', 'Module status updated successfully.')
             ->with('output', $output);  // Pass the output to the view
     }
+    public function module_stat(){
+
+        $totalModules = Module::count();
+        $activeModules = Module::where('status', 'active')->count();
+        $inactiveModules = Module::where('status', 'inactive')->count();
+
+        $modules = Module::all();
+
+        return view('modules.index', compact('totalModules', 'activeModules', 'inactiveModules', 'modules'));
+    
+    }
+    
+
+    public function showStatus(Request $request)
+    {
+        $module = Module::findOrFail($request->module_id);
+        $statusMonitorings = StatusMonitoring::where('module_id', $module->id)
+                                             ->orderBy('created_at', 'desc')
+                                             ->get();
+    
+        $previousStatus = null;
+    
+        foreach ($statusMonitorings as $status) {
+            $statusCreatedAt = Carbon::parse($status->created_at);
+    
+            if ($status->is($statusMonitorings->first())) {
+                // For the latest status, calculate the time difference from now
+                $status->time_in_status = $statusCreatedAt->diffForHumans(Carbon::now(), true);
+            } else {
+                // If this is not the first record, calculate the difference from the previous status
+                if ($previousStatus) {
+                    if ($status->status == 'active') {
+                        // If the status is "active", calculate the difference from the previous status (which is "inactive")
+                        $status->time_in_status = $previousStatus->created_at->diffForHumans($statusCreatedAt, true);
+                    } elseif ($status->status == 'inactive') {
+                        // If the status is "inactive", calculate the difference from the previous "active" status
+                        $status->time_in_status = $previousStatus->created_at->diffForHumans($statusCreatedAt, true);
+                    }
+                }
+            }
+    
+            // Update previous status for next iteration
+            $previousStatus = $status;
+        }
+    
+        return response()->json($statusMonitorings);
+    }
+    
+
+ 
+
 }

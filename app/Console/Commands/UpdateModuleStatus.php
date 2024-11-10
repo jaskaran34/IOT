@@ -44,7 +44,7 @@ class UpdateModuleStatus extends Command
                     $newMeasurement->value = rand(20, 30); // Example: Generate a random value, replace this with actual data logic
                     $newMeasurement->reading_type = 'current';
                     $newMeasurement->save();
-                    $this->info("Module ID: {$module->id} updated successfully with a new 'current' measurement.");
+                    $this->info("Module ID: {$module->id} updated successfully with a new 'current' measurement value {$newMeasurement->value}.");
                         continue;
                 }       
                 
@@ -69,9 +69,9 @@ class UpdateModuleStatus extends Command
 
             
         
-                $this->info("Module ID: {$module->id} updated successfully with a new 'current' measurement.");
+                $this->info("Module ID: {$module->id} updated successfully with a new 'current' measurement value: {$newMeasurement->value}");
             } else {
-                $this->info("Module ID: {$module->id} is up to date. Last measurement is within 1 hour.");
+                    $this->info("Module ID: {$module->id} is up to date. Last measurement is within 1 hour.");
             }
 
             // Save the updated status to the database
