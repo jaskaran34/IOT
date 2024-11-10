@@ -209,8 +209,21 @@ class ModuleController extends Controller
         return view('modules.index', compact('totalModules', 'activeModules', 'inactiveModules', 'modules'));
     
     }
-    
+    public function simulateMalfunction()
+{
+    // Run the Artisan command to simulate the module malfunction
+    Artisan::call('simulate:module-malfunction');
 
+    // Capture the output of the Artisan command
+    $message = Artisan::output();
+
+    // Return the output message to the frontend
+    return response()->json([
+        'status' => 'success',
+        'message' => $message // Send the command output as a message
+    ]);
+}
+    
     public function showStatus(Request $request)
     {
         $module = Module::findOrFail($request->module_id);

@@ -8,21 +8,21 @@ use App\Models\ModuleMeasurement;
 
 use Carbon\Carbon;
 
-class UpdateModuleStatus extends Command
+class SimulateModuleMalfunction extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'update-module-status';
+    protected $signature = 'simulate:module-malfunction';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically update the status of modules based on predefined conditions';
+    protected $description = 'Simulate a module malfunction by skipping data for one module and updating the rest.';
 
     /**
      * Execute the console command.
@@ -31,7 +31,14 @@ class UpdateModuleStatus extends Command
     {
         $modules = Module::where('status', 'active')->get();
 
+        $failedModuleId = $modules->random()->id;
+
         foreach ($modules as $module) {
+
+            if ($module->id === $failedModuleId) {
+                $this->info("Simulating failure for module ID {$module->id}. No data will be inserted.");
+                continue; // Skip data update for this module
+            }
             
             $latestMeasurement = ModuleMeasurement::where('module_id', $module->id)
                 ->orderBy('created_at', 'desc')
@@ -82,10 +89,7 @@ class UpdateModuleStatus extends Command
 
             // Save the updated status to the database
             $module->save();
-        }
-
-        $this->info('Module statuses have been updated successfully!');
     }
-    
+    $this->info('Module statuses have been updated successfully!');
+    }
 }
-
