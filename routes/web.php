@@ -25,6 +25,8 @@ Route::get('/dashboard/combined-data', [DashboardController::class, 'getCombined
 Route::get('/dashboard/module-activity', [DashboardController::class, 'getModuleActivityData'])->name('dashboard.module-activity');
 
 
+Route::get('/module-measurements/{moduleId}', [ModuleController::class, 'fetchMeasurements']);
+
 
 Route::post('/simulate-malfunction', [ModuleController::class, 'simulateMalfunction']);
 Route::get('/modules/all/{id}', [ModuleController::class, 'getAllModules'])->name('modules.all');

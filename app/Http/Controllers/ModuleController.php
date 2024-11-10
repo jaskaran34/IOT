@@ -8,6 +8,7 @@ use App\Models\MeasurementType;
 use App\Models\StatusMonitoring;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\SkippedModule;
+use App\Models\ModuleMeasurement;
 use Carbon\Carbon;
 
 class ModuleController extends Controller
@@ -15,6 +16,15 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function fetchMeasurements($moduleId)
+    {
+        $measurements = ModuleMeasurement::where('module_id', $moduleId)
+        ->orderBy('created_at', 'desc') // Optional: Sort by latest created_at first
+        ->get();
+ 
+    return response()->json($measurements);
+    }
     public function index()
     {
         $types = MeasurementType::all();
