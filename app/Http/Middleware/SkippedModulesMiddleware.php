@@ -17,8 +17,8 @@ class SkippedModulesMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $skippedModulesCount = SkippedModule::count();
-
+       // $skippedModulesCount = SkippedModule::count();
+       $skippedModulesCount = SkippedModule::where('status', 'pending')->count();
         // Share the count with all views
         View::share('skippedModulesCount', $skippedModulesCount);
 

@@ -210,10 +210,21 @@ class ModuleController extends Controller
         return view('modules.index', compact('totalModules', 'activeModules', 'inactiveModules', 'modules'));
     
     }
+    public function updateStatus($id,$status)
+{
+    $skippedModule = SkippedModule::findOrFail($id);
+
+    // Update the status (e.g., 'resolved' or 'ignored')
+    $skippedModule->status = $status;
+    $skippedModule->save();
+
+    // Redirect back with a success message
+    return redirect()->back()->with('status', 'Module status updated successfully.');
+}
     public function skipped_modules()
     {
         // Fetch all skipped modules, with optional pagination if needed
-        $skippedModules = SkippedModule::all(); // or ->paginate(10);
+        $skippedModules = SkippedModule::where('status', 'pending')->get(); // or ->paginate(10);
 
         // Return the view with the skipped modules data
         return view('skippedModules.index', compact('skippedModules'));

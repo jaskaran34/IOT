@@ -14,6 +14,8 @@ use App\Http\Controllers\ModuleTypeController;
 
 Route::get('/skipped-modules', [ModuleController::class, 'skipped_modules'])->name('skippedModules.index');
 
+Route::get('/skipped-modules/{id}/update-status/{status}', [ModuleController::class, 'updateStatus'])->name('skippedModules.updateStatus');
+
 
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 Route::get('/module/dashboard/{id}', [DashboardController::class, 'showModuleDetails'])->name('module.details');

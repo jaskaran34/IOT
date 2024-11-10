@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="container">
-    <h2>Skipped Modules Details</h2>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<h2>Skipped Modules Details</h2>
 
     @if($skippedModules->isEmpty())
-        <p>No skipped modules recorded.</p>
+        <p>No record.</p>
     @else
         <table class="table table-bordered">
             <thead>
@@ -13,6 +15,7 @@
                     <th>Module ID</th>
                     <th>Failure Time</th>
                     <th>Additional Information</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +24,13 @@
                         <td>{{ $module->module_id }}</td>
                         <td>{{ $module->skipped_at }}</td>
                         <td>{{ $module->reason }}</td>
+                        <td>
+                        <div>
+        <span>{{ $module->name }}</span>
+        <a href="{{ route('skippedModules.updateStatus', ['id' => $module->id, 'status' => 'resolved']) }}" class="btn btn-success">Resolve</a>
+        <a href="{{ route('skippedModules.updateStatus', ['id' => $module->id, 'status' => 'ignored']) }}" class="btn btn-warning">Ignore</a>
+    </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -29,4 +39,14 @@
 
     <a href="{{ route('dashboard') }}" class="btn btn-primary mt-3">Back to Dashboard</a>
 </div>
+
+<script>
+    
+        
+    
+</script>
+
+
 @endsection
+
+
