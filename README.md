@@ -1,7 +1,7 @@
 # Project Name
 
 ## Overview
-This project allows users to manage and monitor different types of modules, generate random module measurements, and simulate module failures. The user interface is intuitive, featuring a sidebar with various options to facilitate these operations.
+This project allows users to manage and monitor different types of modules, generate random module measurements, and simulate module failures.
 
 ## Features
 - **Add Module Types**: Create and manage different types of modules such as temperature, pressure, speed, etc.
