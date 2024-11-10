@@ -17,4 +17,9 @@ class Module extends Model
     {
         return $this->belongsTo(MeasurementType::class);
     }
+
+    public function statusMonitorings()
+    {
+        return $this->hasMany(StatusMonitoring::class);
+    }
 }

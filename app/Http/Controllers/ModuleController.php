@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\MeasurementType;
+use App\Models\StatusMonitoring;
+
 
 class ModuleController extends Controller
 {
@@ -54,10 +56,15 @@ class ModuleController extends Controller
         'measurement_type_id' => 'required|exists:measurement_types,id', ]);
 
        // return $validatedData['measurement_type_id'];
-         Module::create([ 
+       $module = Module::create([ 
         'name' => $validatedData['name'], 
         'measurement_type_id' => $validatedData['measurement_type_id'],
      ]);
+
+     StatusMonitoring::create([
+        'module_id' => $module->id,
+        'status' => 'active',
+    ]);
 
     return redirect()->route('modules.index')->with('success', 'Module registered successfully.');
 
@@ -100,7 +107,16 @@ class ModuleController extends Controller
     
         // Save the updated module to the database
         $module->save();
+
+        $latestStatus = StatusMonitoring::where('module_id', $id) ->orderBy('created_at', 'desc') ->first();
+
+        if (is_null($latestStatus) || $latestStatus->status !== $validatedData['status']) {
+        StatusMonitoring::create([
+            'module_id' => $id,
+            'status' => $validatedData['status'],
+        ]);
     
+    }
         // Redirect back to the module list page with a success message
         return redirect()->route('modules.index')->with('info', 'Module updated successfully!');
     }
