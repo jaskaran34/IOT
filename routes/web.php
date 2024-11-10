@@ -13,7 +13,8 @@ use App\Http\Controllers\ModuleTypeController;
 
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
+Route::get('/module/dashboard/{id}', [DashboardController::class, 'showModuleDetails'])->name('module.details');
 
 
 

@@ -49,10 +49,13 @@ class UpdateModuleStatus extends Command
                 }       
                 
                 $lastUpdated = $latestMeasurement->created_at;    
-            $now = Carbon::now();
-            $hoursDifference = $now->diffInHours($lastUpdated);
+            $now = Carbon::now('Asia/Kolkata');
+            $hoursDifference = $lastUpdated->diffInHours($now);
 
-
+           // $this->info($latestMeasurement->module_id);
+           // $this->info($lastUpdated);
+           // $this->info($now);  
+           //  $this->info($hoursDifference);exit;
             // Check if the module is inactive based on the condition
             if ($hoursDifference > 1) {
 

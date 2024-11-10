@@ -8,33 +8,7 @@
     <h3>Module Status Dashboard</h3>
 
     <!-- Total Modules, Active Modules, and Inactive Modules Counts -->
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Total Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $totalModules }}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Active Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $activeModules }}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Inactive Modules</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $inactiveModules }}</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <!-- Dropdown for Module Selection -->
     <div class="mt-4">
         <h4>Select Module to View Status</h4>
