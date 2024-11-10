@@ -56,7 +56,7 @@ class SimulateModuleMalfunction extends Command
                     $this->info("No measurements for module ID yet");
                     $newMeasurement = new ModuleMeasurement();
                     $newMeasurement->module_id = $module->id;
-                    $newMeasurement->value = rand(20, 30); // Example: Generate a random value, replace this with actual data logic
+                    $newMeasurement->value = rand(0, 3000); // Example: Generate a random value, replace this with actual data logic
                     $newMeasurement->reading_type = 'current';
                     $newMeasurement->save();
                     $this->info("Module ID: {$module->id} updated successfully with a new 'current' measurement value {$newMeasurement->value}.");
@@ -84,7 +84,7 @@ class SimulateModuleMalfunction extends Command
 
                 $newMeasurement = new ModuleMeasurement();
                 $newMeasurement->module_id = $module->id;
-                $newMeasurement->value = rand(20, 30); // Example: Generate a random value, replace this with actual data logic
+                $newMeasurement->value = rand(0, 3000); // Example: Generate a random value, replace this with actual data logic
                 $newMeasurement->reading_type = 'current';
                 $newMeasurement->save();
 

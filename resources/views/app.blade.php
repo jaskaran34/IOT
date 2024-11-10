@@ -34,17 +34,22 @@
             margin-left: 250px;
             padding: 20px;
         }
+        .active { 
+            background-color: #1a427d; 
+         }
+        a.active:hover { background-color: #1a427d; }
     </style>
+
 </head>
 <body>
     <div class="sidebar">
         <h5 class="text-center">IoT Monitoring</h5>
         <hr>
-        <a href="{{ route('dashboard') }}">Dashboard <i class="fa-solid fa-gauge"></i></a>
-        <a href="{{ route('modules.index') }}">Modules <i class="fa-solid fa-plus"></i></a>
-        <a href="{{ route('module-types.index') }}">Types </a>
-        <a href="{{ route('update.status') }}">Generate Readings <i class="fa-solid fa-bolt"></i></a>
-        <a href="{{ route('module.status') }}"> Status</a>
+        <a href="{{ route('dashboard') }}" class="{{ Route::is('dashboard') ? 'active' : '' }}">Dashboard <i class="fa-solid fa-gauge"></i></a>
+        <a href="{{ route('modules.index') }}" class="{{ Route::is('modules.index') ? 'active' : '' }}">Modules <i class="fa-solid fa-plus"></i></a>
+        <a href="{{ route('module-types.index') }}" class="{{ Route::is('module-types.index') ? 'active' : '' }}">Types </a>
+        <a href="{{ route('update.status') }}" class="{{ Route::is('update.status') ? 'active' : '' }}">Generate Readings <i class="fa-solid fa-bolt"></i></a>
+        <a href="{{ route('module.status') }}" class="{{ Route::is('module.status') ? 'active' : '' }}"> Status</a>
       
     </div>
 
