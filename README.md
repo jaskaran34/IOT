@@ -19,8 +19,8 @@ This project allows users to manage and monitor different types of modules, gene
 ### Installation
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/project-name.git
-    cd project-name
+    git clone https://github.com/jaskaran34/IOT
+    cd IOT
     ```
 
 2. Set up the environment:
