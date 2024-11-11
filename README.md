@@ -1,4 +1,4 @@
-# Project Name
+# IoT Monitoring
 
 ## Overview
 This project allows users to manage and monitor different types of modules, generate random module measurements, and simulate module failures.
