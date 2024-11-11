@@ -4,7 +4,7 @@
 <div class="container">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<h2>Skipped Modules Details</h2>
+<h5> Error Details</h5>
 
     @if($skippedModules->isEmpty())
         <p>No record.</p>
